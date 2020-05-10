@@ -72,7 +72,9 @@ form button:hover
     flex: 1;
 }
 .trash-btn,
-.complete-btn
+.complete-btn,
+.edit-btn,
+.save-btn
 {
     background: #ff6f47;
     color: white;
@@ -86,12 +88,22 @@ form button:hover
 {
     background:  green;
 }
+.trash-btn
+{
+    background: rgb(190, 20, 19);
+}
+.save-btn
+{
+    background: blue;
+}
 .todo-item
 {
     padding: 0rem 0.5rem;
 }
 .fa-trash,
-.fa-check
+.fa-check,
+.fa-edit,
+.fa-save
 {
     pointer-events: none;
 }
@@ -100,6 +112,15 @@ form button:hover
 {
     text-decoration: line-through;
     opacity: 0.5;
+}
+.edit-input
+{
+    border: none;
+    flex: 1;
+    padding: 0rem 0.5rem;
+    font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
 }
 .fall
 {
