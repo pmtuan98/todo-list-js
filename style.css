@@ -66,6 +66,7 @@ form button:hover
     justify-content: space-between;
     align-items: center;
     transition: all 0.3s ease;
+
 }
 .todo li 
 {
@@ -73,8 +74,7 @@ form button:hover
 }
 .trash-btn,
 .complete-btn,
-.edit-btn,
-.save-btn
+.edit-btn
 {
     background: #ff6f47;
     color: white;
@@ -92,7 +92,7 @@ form button:hover
 {
     background: rgb(190, 20, 19);
 }
-.save-btn
+.edit-btn
 {
     background: blue;
 }
@@ -102,8 +102,7 @@ form button:hover
 }
 .fa-trash,
 .fa-check,
-.fa-edit,
-.fa-save
+.fa-edit
 {
     pointer-events: none;
 }
@@ -120,7 +119,7 @@ form button:hover
     padding: 0rem 0.5rem;
     font-size: 1.5rem;
     font-family: 'Poppins', sans-serif;
-    outline: none;
+    pointer-events: none;
 }
 .fall
 {

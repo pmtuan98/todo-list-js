@@ -18,6 +18,7 @@ function addTodo(event) {
     //todo <div>
     const todoDiv = document.createElement('div');
     todoDiv.classList.add('todo');
+
     //Create <li>
     const newTodo = document.createElement('li');
     newTodo.innerText = todoInput.value;
@@ -89,24 +90,55 @@ function modifyTodo(event) {
                 todo.remove();
             });
         }
-        
-
     }
-    // //edit button
-    // if (item.classList[0] === "edit-btn") {
-    //     const todo = item.parentElement;
-    //     let editInput = document.createElement("input");
-    //     let saveButton = document.createElement('button');
-    //     saveButton.innerHTML = '<i class="far fa-save"></i>'
-    //     saveButton.classList.add("save-btn");
-    //     todoList.appendChild(saveButton);
-    //     editInput.classList.add("edit-input");
-    //     editInput.value = todo.innerText;
-    //     let todoItem = todo.firstChild;
-    //     todo.replaceChild(editInput,todoItem);
-    //     editInput.focus();
-        
-    // }
+    //edit button
+    if (item.classList[0] === "edit-btn") {
+        //if edit button is clicked, other button is disable
+        document.addEventListener("click",handler,true);
+        function handler(e){
+            e.stopPropagation();
+            e.preventDefault();
+        }
+        const todo = item.parentElement;
+        let todos = checkLocalStorage();
+        let completedTodos = checkCompletedLocalStorage();
+        const todoIndex = todo.children[0].innerText;
+        let editInput = document.createElement("input");
+        editInput.classList.add("edit-input");
+        editInput.value = todo.innerText;
+        let todoItem = todo.firstChild;
+        todo.replaceChild(editInput,todoItem);
+        editInput.focus();
+        $(function() { //prevent user from leave input without press enter
+            $('.edit-input').bind('focusout', function(e) {
+                if(e.keyCode != 13) {
+                    e.preventDefault();
+                    $(this).focus();
+                }
+            });
+        });
+        editInput.addEventListener("keypress", function(event){
+            if(event.keyCode == 13) {
+                updateItem();
+                document.removeEventListener("click",handler,true);
+            }
+        })
+        function updateItem(event) {
+            if(todo.classList.contains("completed")){
+                completedTodos.splice(completedTodos.indexOf(todoIndex), 1, editInput.value);
+                localStorage.setItem("completed-todo", JSON.stringify(completedTodos));
+                todo.replaceChild(todoItem,editInput);
+                todoItem.innerText = editInput.value;
+                editInput.blur();
+            }else{
+                todos.splice(todos.indexOf(todoIndex), 1, editInput.value);
+                localStorage.setItem("todos", JSON.stringify(todos));
+                todo.replaceChild(todoItem,editInput);
+                todoItem.innerText = editInput.value;
+                editInput.blur();
+            }
+        };
+    }
 }
 
 function filterTodo(event) {
